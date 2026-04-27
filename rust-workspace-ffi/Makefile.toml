@@ -1,0 +1,29 @@
+[config]
+default_to_workspace = false
+
+[env]
+PYTHON = "uv"
+LIB = "coin_flip"
+
+[tasks.build]
+condition = { files_modified = { input = ["**/Cargo.toml", "**/src/**/*.rs"], output = ["./target/**/*${LIB}*"] } }
+private = true
+command = "cargo"
+args = ["build", "--release"]
+
+[tasks.copy-lib]
+condition = { files_modified = { input = ["./target/release/lib${LIB}_py.so"], output = ["coin_flip_cli_py${LIB}.so"] }, platforms = ["linux"] }
+private = true
+command = "cp"
+args = [ "./target/release/lib${LIB}_py.so", "./coin_flip_cli_py/${LIB}.so" ]
+
+[tasks.run-python]
+dependencies = [ "build", "copy-lib" ]
+cwd = "coin_flip_cli_py"
+command = "${PYTHON}"
+args = ["run", "simulate.py", "${@}"]
+
+[tasks.run-rust]
+dependencies = ["build"]
+command = "./target/release/coin_flip_cli"
+args = ["${@}"]

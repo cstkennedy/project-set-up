@@ -1,0 +1,11 @@
+[package]
+name = "room_renovation_cli"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+room_renovation = { version = "0.1.0", path = "../room_renovation" }
+eyre = "0.6.12"
+simple_logger = "5.2.0"
+ordered-float = "5.3.0"
+itertools = "0.14.0"

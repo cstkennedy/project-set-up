@@ -1,0 +1,8 @@
+[workspace]
+
+resolver = "2"
+
+members = [
+    "room_renovation",
+    "room_renovation_cli"
+]

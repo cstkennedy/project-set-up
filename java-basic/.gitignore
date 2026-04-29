@@ -1,0 +1,8 @@
+# Java rules
+**.class
+**.jar
+
+# Gradle rules
+**.gradle
+**/build
+!**gradle-wrapper.jar
